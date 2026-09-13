@@ -1,0 +1,9 @@
+node_modules/
+.data/
+.env
+.env.*
+!.env.example
+drafts/
+*.log
+.DS_Store
+Thumbs.db
