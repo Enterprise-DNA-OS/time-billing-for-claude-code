@@ -13,12 +13,13 @@ That layer used to be the whole product, because talking to a database was hard.
 
 ## What you give up
 
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
+- **The stopwatch.** There is no timer running in a browser tab. Time is logged after the fact, in one sentence: `/log Kauri intake 2h15 "conflict check screens"`. People who live by the timer will feel this on day one.
+- **A phone app.** It runs where Claude Code runs. Time logged from the car goes into a note and gets entered later.
+- **Approvals and payment links.** No timesheet approval workflow, no card payment button on the invoice, no automatic reminders. You mark an invoice sent and paid, and the chaser is a draft you send yourself.
 - **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
 
 ## Who this fits
 
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Harvest. If you need the answers more than the screens, this is cheaper, faster and yours.
+Small firms that bill by the hour, already use Claude Code, and would rather ask a question than learn another interface. If your team needs a timer button and a phone app, keep Harvest. If what you actually need is to know what is unbilled, what is over budget and who is slow to pay, this is cheaper, faster and yours.
 
 Installed and run for you: https://enterprisedna.co/omni/instead-of/harvest

@@ -1,0 +1,4 @@
+Date,Client,Project,Project Code,Category,Notes,Quantity,Unit Price,Total Cost,Currency,First Name,Last Name,Billable?,Invoiced?,Approved?,Reimbursed?,Has Receipt?
+2026-06-03,Rangitoto Property,Lease review portal,RAN-01,Mileage,"Site visit to the Newmarket office",48,0.95,45.60,New Zealand Dollar - NZD,Aroha,Ngata,Yes,Yes,Yes,Yes,Yes
+2026-06-16,Waikato Advisory,Practice dashboard,WAI-01,Software,"Chart library licence",1,220.00,220.00,New Zealand Dollar - NZD,Daniel,Ross,Yes,No,Yes,No,Yes
+2026-06-19,Coastal Vet Group,Booking reminders,COA-01,Meals,"Lunch with the practice manager",1,64.00,64.00,New Zealand Dollar - NZD,Aroha,Ngata,No,No,Yes,No,Yes

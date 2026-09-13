@@ -1,0 +1,3 @@
+Invoice ID,Client,Subject,Issue Date,Due Date,Amount,Currency,Status,Paid Date,Purchase Order
+2041,Rangitoto Property,"Lease review portal, discovery and first build",2026-06-05,2026-06-19,1966.25,New Zealand Dollar - NZD,Paid,2026-06-17,
+2042,Waikato Advisory,"Practice dashboard, discovery and design",2026-06-15,2026-07-15,877.50,New Zealand Dollar - NZD,Open,,PO-4471

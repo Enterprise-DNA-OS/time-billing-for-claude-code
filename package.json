@@ -1,16 +1,25 @@
 {
   "name": "time-billing-for-claude-code",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "The open-source time tracking and invoicing that is just a database and Claude Code.",
   "type": "module",
   "license": "MIT",
   "author": "Enterprise DNA (https://www.enterprisedna.co)",
-  "repository": "github:Enterprise-DNA-OS/time-billing-for-claude-code",
-  "engines": { "node": ">=20" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enterprise-DNA-OS/time-billing-for-claude-code.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "timebill": "scripts/billing.mjs"
+  },
   "scripts": {
     "migrate": "node scripts/migrate.mjs",
     "seed": "node scripts/seed.mjs",
-    "demo": "node scripts/migrate.mjs && node scripts/seed.mjs",
+    "demo": "node scripts/migrate.mjs && node scripts/seed.mjs && node scripts/billing.mjs timesheet && node scripts/billing.mjs unbilled && node scripts/billing.mjs attention",
+    "billing": "node scripts/billing.mjs",
     "test": "node scripts/smoke.mjs"
   },
   "dependencies": {

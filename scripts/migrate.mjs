@@ -1,22 +1,41 @@
 #!/usr/bin/env node
-// Applies supabase/migrations/*.sql in filename order, once each, tracked in
-// schema_migrations. Safe to run every time. Works on Postgres and embedded.
-import fs from 'node:fs';
-import path from 'node:path';
-import { getDb } from './lib/db.mjs';
+// Applies supabase/migrations/*.sql in filename order. Tracks what ran in schema_migrations.
+// Safe to run any number of times.
 
-const dir = path.resolve(process.cwd(), 'supabase', 'migrations');
-const db = await getDb();
-await db.exec(`create table if not exists schema_migrations (name text primary key, applied_at timestamptz not null default now())`);
-const done = new Set((await db.query('select name from schema_migrations')).map((r) => r.name));
-const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.sql')).sort() : [];
-let applied = 0;
-for (const f of files) {
-  if (done.has(f)) continue;
-  await db.exec(fs.readFileSync(path.join(dir, f), 'utf8'));
-  await db.query('insert into schema_migrations (name) values ($1)', [f]);
-  console.log(`applied ${f}`);
-  applied++;
+import { readdirSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { getDb, REPO_ROOT } from './lib/db.mjs';
+
+export async function migrate(db) {
+  await db.exec(`
+    create table if not exists schema_migrations (
+      name text primary key,
+      applied_at timestamptz not null default now()
+    );
+  `);
+  const applied = new Set((await db.query('select name from schema_migrations')).map((r) => r.name));
+  const dir = path.join(REPO_ROOT, 'supabase', 'migrations');
+  const files = readdirSync(dir).filter((f) => f.endsWith('.sql')).sort();
+  const ran = [];
+  for (const file of files) {
+    if (applied.has(file)) continue;
+    const sql = readFileSync(path.join(dir, file), 'utf8');
+    await db.exec(sql);
+    await db.query('insert into schema_migrations (name) values ($1)', [file]);
+    ran.push(file);
+  }
+  return { ran, skipped: files.length - ran.length };
 }
-console.log(applied ? `${applied} migration(s) applied (${db.mode})` : `schema up to date (${db.mode})`);
-await db.close();
+
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (isMain) {
+  const db = await getDb();
+  try {
+    const { ran, skipped } = await migrate(db);
+    for (const f of ran) console.log(`applied  ${f}`);
+    console.log(`migrate: ${ran.length} applied, ${skipped} already there (${db.mode}${db.dir ? ', ' + db.dir : ''})`);
+  } finally {
+    await db.close();
+  }
+}
